@@ -1,7 +1,7 @@
 // Imports
 //////////
 
-import { axios } from 'axios';
+import axios from 'axios';
 import { api_key, baseUrl } from './config';
 
 
@@ -13,7 +13,8 @@ export const initOverview = () => {
     clearContent();
 
     // Do the ajax request
-    axios.get(`url&?api_key=${api_key}`)
+    // https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=cf09aafcb2c7ae356c4089e437aa0ce3
+    axios.get(`${baseUrl}&api_key=${api_key}`)
         .then(res => {
            console.log(res.data);
             // Generate content
