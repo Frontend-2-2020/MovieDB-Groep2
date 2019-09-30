@@ -13,7 +13,6 @@ export const initOverview = () => {
     clearContent();
 
     // Do the ajax request
-    // https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=cf09aafcb2c7ae356c4089e437aa0ce3
     axios.get(`${baseUrl}&api_key=${api_key}`)
         .then(res => {
            console.log(res.data);
@@ -29,4 +28,21 @@ const clearContent = () => {
 
 const generateContent = (data) => {
     console.log(data);
+    // Loop over de array en maak een card voor elke film
+    data.results.map(movie => {
+        // Maak card aan
+        const contentDiv = document.getElementById('content');
+        console.log(movie.id)
+        contentDiv.innerHTML+=`
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">${movie.title}</h5>
+                    <p class="card-text">${movie.overview.substr(200)}...</p>
+                    <a href="#" class="btn btn-primary">Show detail</a>
+                </div>
+           </div>`
+        // Voeg properties toe aan card
+
+    })
 };
