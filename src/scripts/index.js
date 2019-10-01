@@ -4,7 +4,6 @@
 // JS
 import { initDetail } from './initDetail';
 import { initOverview } from './initOverview';
-import { api_key } from "./config";
 import queryString from "query-string";
 
 // CSS
@@ -17,7 +16,7 @@ import '../styles/index.scss';
 
 const parsed = queryString.parse(location.search);
 
-if(parsed.movieId) {
+if(parsed.movie) {
     initDetail();
 } else {
     initOverview();
