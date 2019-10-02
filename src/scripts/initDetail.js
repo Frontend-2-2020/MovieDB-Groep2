@@ -1,4 +1,46 @@
+// Import
+
+import { api_key, baseUrlMovie, baseUrlBackdrop } from './config';
+import axios from 'axios';
+import { brotliDecompressSync } from 'zlib';
+
+// Functionality
+
 export const initDetail = () => {
-    const name = "Jannick";
-    console.log(name);
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get('movie');
+    console.log(myParam);
+
+    // Do the ajax request
+    axios.get(`${baseUrlMovie}${myParam}?api_key=${api_key}`)
+        .then(res => {
+            // Generate content
+           generateContent(res.data);
+
+            console.log(res);
+        });
+
+        function generateContent(data){
+            var companyDiv = "";
+            data.production_companies.map(company =>{
+                companyDiv += `
+                <p class= "text-light">   ${company.name} </p>
+                `
+            })
+
+           var contentDiv =  document.getElementById("content");
+           contentDiv.innerHTML = `
+            <div class="jumbotron" style= "background-image: url(${baseUrlBackdrop}${data.backdrop_path}); background-size: cover; background-repeat: no-repeat;">
+                <h1 class="display-4 text-light">${data.title}</h1>
+                <p class="lead text-light">${data.overview}</p>
+                <hr class="my-4 bg-light">
+                <p class= "text-light">Score: ${data.vote_average}</p>
+                <p class= "text-light"> ${data.release_date}</p>
+                ${companyDiv}
+                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+            </div>
+           `
+        }
 };
+
