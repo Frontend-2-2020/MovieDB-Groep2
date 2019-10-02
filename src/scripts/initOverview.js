@@ -16,7 +16,6 @@ export const initOverview = () => {
     // Do the ajax request
     axios.get(`${baseUrlOverview}&api_key=${api_key}`)
         .then(res => {
-           console.log(res.data);
             // Generate content
             generateContent(res.data);
         });
@@ -44,16 +43,36 @@ const generateContent = (data) => {
         // Create the card & add it to the content div
         const contentDiv = document.getElementById('content');
         contentDiv.innerHTML += `
-            <div class="col-md-3 col-sm-6 mb-4">
+            <!-- Full movie card -->
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                 <div class="card h-100 m-auto">
+                    <!-- Card body -->
                     <img src=${cardImageUrl} class="card-img-top" alt=${movie.title}>
                     <div class="card-body d-flex flex-column justify-content-between">
-                        <div class="card-body--section mb-4">
+                        <!-- Card header -->
+                        <div class="card-body__section mb-4">
                             <h5 class="card-title">${movie.title}</h5>
                             <p class="card-text">${movie.overview.substr(0, 100)}...</p>
                         </div>
-                        <div class="card-body--section d-flex justify-content-center">
-                            <a href=${movieDetailLink} class="btn btn-secondary">Read more</a>
+                        <!-- Card content -->
+                        <div class="card-body__section d-flex flex-column">
+                            <!-- Movie info -->
+                            <div class="card-body__section__info d-flex justify-content-between mb-2">
+                                <!-- Release date -->
+                                <div class="card-body__section__info--left">
+                                    <h5 class="text-muted lead">Release date</h5>
+                                    <p>${movie.release_date}</p>
+                                </div>
+                                <!-- Score -->
+                                <div class="card-body__section__info--right">
+                                    <h5 class="text-muted lead">Score</h5>
+                                    <p class="text-right">${movie.vote_average}</p>
+                                </div>                           
+                            </div>
+                            <!-- URL to movie detail -->
+                            <div class="card-body__section__link">
+                                <a href=${movieDetailLink} class="btn btn-primary btn-block">Read more</a>
+                            </div>
                         </div>
                     </div>
                 </div>
