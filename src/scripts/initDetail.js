@@ -2,7 +2,7 @@
 
 import { api_key, baseUrlMovie, baseUrlBackdrop } from './config';
 import axios from 'axios';
-import { brotliDecompressSync } from 'zlib';
+
 
 // Functionality
 
@@ -26,8 +26,8 @@ export const initDetail = () => {
             data.production_companies.map(company =>{
                 companyDiv += `
                 <p class= "text-light">   ${company.name} </p>
-                `
-            })
+                `;
+            });
 
            var contentDiv =  document.getElementById("content");
            contentDiv.innerHTML = `
@@ -38,9 +38,9 @@ export const initDetail = () => {
                 <p class= "text-light">Score: ${data.vote_average}</p>
                 <p class= "text-light"> ${data.release_date}</p>
                 ${companyDiv}
-                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                <a class="btn btn-primary btn-lg" href="http://localhost:8080" role="button">Go back</a>
             </div>
-           `
-        }
+           `;
+        };
 };
 
