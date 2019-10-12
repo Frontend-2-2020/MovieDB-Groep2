@@ -23,6 +23,8 @@ export const initDetail = () => {
 
     function generateContent(data) {
 
+        console.log(data);
+
         // Generate poster URL
         const moviePoster = `${baseUrlCardImg}${data.poster_path}`;
 
@@ -30,14 +32,19 @@ export const initDetail = () => {
         data.production_companies.map(company => {
             companyDiv +=
                 `
-                    <p class= "text-light">   ${company.name} </p>
+                    
+                    <div class="d-flex flex-column align-items-center text-center">
+                        <h5 class= "text-light mb-4">${company.name}</h5>
+                        <img src="${baseUrlCardImg + company.logo_path}" alt="" width="100px">                    
+                    </div>
+                    
                 `;
         });
 
         var contentDiv = document.getElementById("content");
         contentDiv.innerHTML =
             `
-                <div class="jumbotron" style= "background-image: url(${baseUrlBackdrop}${data.backdrop_path}); background-size: cover; background-repeat: no-repeat;">
+                <div class="jumbotron pb-0" style= "background-image: url(${baseUrlBackdrop}${data.backdrop_path}); background-size: cover; background-repeat: no-repeat;">
                     <h1 class="display-4 text-light">${data.title}</h1>
                     <p class="lead text-light">${data.overview}</p>
                     <hr class="my-4 bg-light">
@@ -49,7 +56,9 @@ export const initDetail = () => {
                         <img src="${moviePoster}" class="img-fluid img thumbnail h-100">
                         ${companyDiv}
                     </div>
-                    <a class="btn btn-primary btn-lg" href="http://localhost:8080" role="button">Go back</a>
+                    <div class="d-flex justify-content-center">
+                        <a class="btn btn-primary btn-lg" href="http://localhost:8080" role="button">Go back</a>                    
+                    </div>
                 </div>
            `;
     };
