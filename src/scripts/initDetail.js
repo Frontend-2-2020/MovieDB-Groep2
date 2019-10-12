@@ -35,9 +35,14 @@ export const initDetail = () => {
                 <h1 class="display-4 text-light">${data.title}</h1>
                 <p class="lead text-light">${data.overview}</p>
                 <hr class="my-4 bg-light">
+                <div class="d-flex justify-content-between bg-dark p-2 mb-4"> 
                 <p class= "text-light">Score: ${data.vote_average}</p>
-                <p class= "text-light"> ${data.release_date}</p>
+                    <p class= "text-light"> ${data.release_date}</p>
+                </div>
+                <div class="d-flex justify-content-around h-50">
+                <img src="${data.poster_path}" class="img-fluid img thumbnail h-100">
                 ${companyDiv}
+                </div>
                 <a class="btn btn-primary btn-lg" href="http://localhost:8080" role="button">Go back</a>
             </div>
            `;
