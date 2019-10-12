@@ -10,37 +10,37 @@ export const initDetail = () => {
 
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('movie');
-    console.log(myParam);
 
     // Do the ajax request
     axios.get(`${baseUrlMovie}${myParam}?api_key=${api_key}`)
         .then(res => {
             // Generate content
             generateContent(res.data);
-
-            console.log(res);
         });
 
     function generateContent(data) {
-
-        console.log(data);
-
         // Generate poster URL
         const moviePoster = `${baseUrlCardImg}${data.poster_path}`;
 
+        // Generate the info for the production companies
         var companyDiv = "";
-        data.production_companies.map(company => {
+        data.production_companies.forEach(company => {
+
+            // Create the url for the company logo if there is one
+            const companyLogo = company.logo_path ? `${baseUrlCardImg}${company.logo_path}` : '#';
+
+            // Fill the company info
             companyDiv +=
                 `
-                    
                     <div class="d-flex flex-column align-items-center text-center">
                         <h5 class= "text-light mb-4">${company.name}</h5>
-                        <img src="${baseUrlCardImg + company.logo_path}" alt="" width="100px">                    
+                        <img src="${companyLogo}" alt="" width="100px">                    
                     </div>
                     
                 `;
         });
 
+        // Get the contentDiv element & generate its html content
         var contentDiv = document.getElementById("content");
         contentDiv.innerHTML =
             `
